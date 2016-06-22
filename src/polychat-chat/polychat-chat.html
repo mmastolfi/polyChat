@@ -1,0 +1,50 @@
+<link rel="import" href="../polychat-message/polychat-message.html">
+
+<dom-module id="polychat-chat">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-list items="[[messageList]]" as="message">
+      <template>
+        <div tabindex$="[[tabIndex]]">
+          <polychat-message text="[[message.text]]" user="[[message.user]]"></polychat-message>
+        </div>
+      </template>
+    </iron-list>
+    <paper-icon-button noink icon="clear" class="clear" on-tap="clearInput"></paper-icon-button>
+    <paper-input no-label-float label="Introduce texto aqui..." class="chatText" value="{{input}}"></paper-input>
+    <paper-fab icon="send" class="send" on-tap="sendMessage"></paper-fab>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'polychat-chat',
+
+      properties: {
+          input: String,
+          messageList: {
+            type: Array,
+            value: function () { return []; }
+          }
+      },
+
+      clearInput: function(){
+        input.value="";
+      },
+
+      sendMessage: function(){
+        if(!input.value) return;
+
+        this.push('messageList',{"text":input.value});
+        this.clearInput();
+      },
+
+    });
+  </script>
+</dom-module>

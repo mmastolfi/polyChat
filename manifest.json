@@ -1,0 +1,7 @@
+{
+  "name": "polychat",
+  "short_name": "polychat",
+  "description": "chat en polymer",
+  "start_url": "/",
+  "display": "standalone"
+}
