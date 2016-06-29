@@ -49,7 +49,7 @@
       receiveMessage : function(data){
         this.push('messageList',{"text":data, "user": "other"});
       },
-      ready: function(){
+      created: function(){
         var self = this;
         this.socket = io.connect('http://localhost:3000');
         this.socket.on('new',function(data){
