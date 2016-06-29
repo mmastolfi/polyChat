@@ -31,7 +31,8 @@
           messageList: {
             type: Array,
             value: function () { return []; }
-          }
+          },
+          socket: Object
       },
 
       clearInput: function(){
@@ -41,9 +42,20 @@
       sendMessage: function(){
         if(!input.value) return;
 
-        this.push('messageList',{"text":input.value});
+        this.push('messageList',{"text":input.value, "user":"me"});
+        this.socket.emit('chat',input.value);
         this.clearInput();
       },
+      receiveMessage : function(data){
+        this.push('messageList',{"text":data, "user": "other"});
+      },
+      ready: function(){
+        var self = this;
+        this.socket = io.connect('http://localhost:3000');
+        this.socket.on('new',function(data){
+          self.receiveMessage(data);
+        });
+      }
 
     });
   </script>

@@ -4,10 +4,15 @@
       paper-card{
         text-align: center;
         margin: 10px;
-        border-radius: 20px 20px 0px 20px;
-        background-color: #2D8633;
       }
-
+      paper-card.other{
+        background-color: grey;
+        border-radius: 20px 20px 20px 0px;
+      }
+      paper-card.me{
+        background-color: #2D8633;
+        border-radius: 20px 20px 0px 20px;
+      }
     </style>
 
     <paper-card>
@@ -22,9 +27,14 @@
       is: 'polychat-message',
 
       properties: {
-          text: String,
-          user: String
+          user: {
+            type: String,
+            observer: '_getUser'
+          }
       },
+      _getUser: function(){
+        this.$$('paper-card').classList.add(this.user);
+      }
 
     });
   </script>
